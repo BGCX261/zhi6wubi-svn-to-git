@@ -1,0 +1,12 @@
+EXPORTS
+	NewFepL__FR7CCoeEnvRC7TDesC16RC17CCoeFepParameters @ 1 NONAME
+	SynchronouslyExecuteSettingsDialogL__FR7CCoeEnvRC7TDesC16 @ 2 NONAME
+	Reserved_1__Fv @ 3 NONAME ; Reserved_1(void)
+	Reserved_2__Fv @ 4 NONAME ; Reserved_2(void)
+	Reserved_3__Fv @ 5 NONAME ; Reserved_3(void)
+	Reserved_4__Fv @ 6 NONAME ; Reserved_4(void)
+	Reserved_5__Fv @ 7 NONAME ; Reserved_5(void)
+	Reserved_6__Fv @ 8 NONAME ; Reserved_6(void)
+	Reserved_7__Fv @ 9 NONAME ; Reserved_7(void)
+	Reserved_8__Fv @ 10 NONAME ; Reserved_8(void) 
+

@@ -1,0 +1,107 @@
+/*
+* ============================================================================
+*  Name     : FepSetup_S60_3rd_ed.mmp
+*  Part of  : FepSetup
+*  Created  : 06/14/2006 by Forum Nokia 
+*  Version  : 2.0
+*  Copyright: Forum Nokia
+* ============================================================================
+*/
+
+TARGET			zhi6FepSetup.exe
+TARGETTYPE		exe
+UID 0x100039CE 0xE0003474
+SECUREID		0xE0003474
+
+//CAPABILITY WriteDeviceData
+//权限
+CAPABILITY WriteDeviceData ReadDeviceData NetworkServices LocalServices ReadUSerData WriteUserData UserEnvironment 
+
+START RESOURCE          ..\data\zhi6FepSetup.rss
+	HEADER
+	TARGETPATH	"\\resource\\apps"
+	LANG		SC
+END
+
+START RESOURCE          ..\data\zhi6FepSetup_loc.rss
+	HEADER
+	TARGETPATH	"\\resource\\apps"
+	LANG		SC
+END
+
+
+START RESOURCE    ..\data\SettingExample.rss
+	HEADER
+	TARGETPATH	"\\resource\\apps"
+	LANG		SC
+END
+
+START RESOURCE          ..\data\zhi6FepSetup_reg.rss
+	TARGETPATH	"\\private\\10003a3f\\apps"
+END 
+
+
+SOURCEPATH      ..\data
+ START RESOURCE E0003474.rss
+ END
+
+LANG			SC
+
+SOURCEPATH		..\src
+SOURCE			FepSetupApp.cpp 
+SOURCE			FepSetupAppUi.cpp
+SOURCE			FepSetupDocument.cpp
+SOURCE			FepSetupContainer.cpp
+SOURCE SIPExAddrQueryDlg.cpp SettingExampleCheckboxSetting.cpp SettingExampleSettingList.cpp SettingExampleSettingsData.cpp
+/*EPOCHEAPSIZE 0x19000 0x800000
+*/
+USERINCLUDE		. ..\inc
+SYSTEMINCLUDE		. \epoc32\include
+
+LIBRARY         euser.lib
+LIBRARY         apparc.lib
+LIBRARY         cone.lib
+LIBRARY         eikcore.lib
+LIBRARY         avkon.lib
+LIBRARY         bafl.lib
+LIBRARY         efsrv.lib 
+LIBRARY         fepbase.lib
+LIBRARY		eikcoctl.lib  // CEikLabel
+LIBRARY         CommonEngine.lib //FOR stringLoader
+
+/*readfiel needed*/
+SYSTEMINCLUDE \epoc32\include\libc
+LIBRARY estlib.lib
+
+/////////new add
+LIBRARY gdi.lib
+
+//新加的两个
+LIBRARY		insock.lib
+
+LIBRARY		estor.lib 
+
+//对话框：
+LIBRARY           eikdlg.lib
+
+
+///列表
+LIBRARY			euser.lib apparc.lib cone.lib eikcore.lib avkon.lib
+LIBRARY			commonengine.lib efsrv.lib estor.lib eikcoctl.lib eikdlg.lib 
+LIBRARY			eikctl.lib bafl.lib fbscli.lib aknnotify.lib aknicon.lib
+LIBRARY			etext.lib gdi.lib egul.lib insock.lib
+LIBRARY			ecom.lib InetProtUtil.lib http.lib esock.lib
+
+
+//打开浏览器
+library apgrfx.lib
+
+//手机型号
+LIBRARY  hal.lib
+//短消息
+//LIBRARY msgs_autoshutdown.lib 
+//LIBRARY msgs.lib 
+LIBRARY msgs.lib smcm.lib gsmu.lib
+
+
+LIBRARY sendui.lib etext.lib

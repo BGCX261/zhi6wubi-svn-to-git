@@ -1,0 +1,24 @@
+;=======================================================================
+;  Name     : FepExample_S60_2nd_ed.pkg
+;  Part of  : FepExample
+;  Created  : 06/14/2006 by Forum Nokia 
+;  Version  : 2.0
+;  Copyright: Forum Nokia
+;=======================================================================
+;
+; Installation file for FepExample application
+;
+;Languages
+&EN
+;
+; UID is the app's UID
+;
+#{"FepExample"},(0x01002549),2,0,0
+;
+; Required line for S60 2.0 devices.
+(0x101F7960), 0, 0, 0, {"Series60ProductID"} 
+
+"ReadMe.txt"-"",FT,TA
+
+"\Symbian\7.0s\Series60_v21_CW\Epoc32\release\armi\urel\FepExample.fep"         -"!:\system\fep\FepExample.fep"
+

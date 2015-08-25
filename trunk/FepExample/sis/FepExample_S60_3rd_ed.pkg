@@ -1,0 +1,37 @@
+;=======================================================================
+;  Name     : FepExample_S60_3rd_ed.pkg
+;  Part of  : FepExample
+;  Created  : 06/14/2006 by Forum Nokia 
+;  Version  : 2.0
+;  Copyright: Forum Nokia
+;=======================================================================
+;
+; Installation file for FepExample application
+;
+;Languages
+&EN
+;
+; UID is the app's UID
+;
+#{"FepExample"},(0xE1002549),2,0,0
+;
+;Localised Vendor name
+;
+%{"Forum Nokia"}
+
+;
+;Unique Vendor name
+;
+:"Forum Nokia"
+
+;
+;Supports S60 v 3.0
+;
+[0x101F7961], 0, 0, 0, {"Series60ProductID"}
+
+"ReadMe.txt"-"",FT,TA
+
+"\Symbian\9.2\S60_3rd_FP1\Epoc32\release\gcce\urel\FepExample.dll"		-"!:\sys\bin\FepExample.dll"
+"\Symbian\9.2\S60_3rd_FP1\Epoc32\Data\z\resource\plugins\FepExample.rsc"	-"!:\Resource\Plugins\FepExample.rsc"
+
+

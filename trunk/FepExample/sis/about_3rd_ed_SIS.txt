@@ -1,0 +1,2 @@
+You have to sign the FepExample_S60_3rd_ed.SIS file using Manufacturer Approved
+Developer Certificate due to the need for "ALL -TCB" capabilities.

@@ -1,0 +1,12 @@
+EXPORTS
+	?NewFepL@@YAPAVCCoeFep@@AAVCCoeEnv@@ABVTDesC16@@ABVCCoeFepParameters@@@Z @ 1 NONAME ; class CCoeFep * NewFepL(class CCoeEnv &, class TDesC16 const &, class CCoeFepParameters const &)
+	?Reserved_1@@YAXXZ @ 2 NONAME ; void Reserved_1(void)
+	?Reserved_2@@YAXXZ @ 3 NONAME ; void Reserved_2(void)
+	?Reserved_3@@YAXXZ @ 4 NONAME ; void Reserved_3(void)
+	?Reserved_4@@YAXXZ @ 5 NONAME ; void Reserved_4(void)
+	?Reserved_5@@YAXXZ @ 6 NONAME ; void Reserved_5(void)
+	?Reserved_6@@YAXXZ @ 7 NONAME ; void Reserved_6(void)
+	?Reserved_7@@YAXXZ @ 8 NONAME ; void Reserved_7(void)
+	?Reserved_8@@YAXXZ @ 9 NONAME ; void Reserved_8(void)
+	?SynchronouslyExecuteSettingsDialogL@@YAXAAVCCoeEnv@@ABVTDesC16@@@Z @ 10 NONAME ; void SynchronouslyExecuteSettingsDialogL(class CCoeEnv &, class TDesC16 const &)
+

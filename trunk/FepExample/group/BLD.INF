@@ -1,0 +1,19 @@
+/*
+* ============================================================================
+*  Name     : bld.inf
+*  Part of  : FepExample
+*  Created  : 06/14/2006 by Forum Nokia 
+*  Version  : 2.0
+*  Copyright: Forum Nokia
+* ============================================================================
+*/
+
+PRJ_EXPORTS
+
+PRJ_MMPFILES
+#ifdef EKA2
+fepexample_S60_3rd_ed.mmp
+#else
+fepexample.mmp
+#endif
+

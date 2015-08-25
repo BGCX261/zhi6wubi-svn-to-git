@@ -1,0 +1,34 @@
+/*
+* ============================================================================
+*  Name     : E1002549.rss
+*  Part of  : FepExample
+*  Created  : 06/14/2006 by Forum Nokia 
+*  Version  : 2.0
+*  Copyright: Forum Nokia
+* ============================================================================
+*/
+
+#include <RegistryInfo.rh>
+
+RESOURCE REGISTRY_INFO theInfo
+  {
+  dll_uid = 0xE1002549; // UID3 of the DLL
+  interfaces = 
+    {
+    INTERFACE_INFO
+      {
+      interface_uid = 0x1020233F; // Same for every FEP
+      implementations = 
+        {
+        IMPLEMENTATION_INFO
+          {
+          implementation_uid = 0xE1002549;
+          version_no = 1;
+          display_name = "FepExample";
+          default_data = "";
+          opaque_data = "";
+          }
+        };
+      }
+    };
+  }

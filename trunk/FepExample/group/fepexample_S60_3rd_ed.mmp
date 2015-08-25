@@ -1,0 +1,39 @@
+/*
+* ============================================================================
+*  Name     : fepexample_S60_3rd_ed.mmp
+*  Part of  : FepExample
+*  Created  : 06/14/2006 by Forum Nokia 
+*  Version  : 2.0
+*  Copyright: Forum Nokia
+* ============================================================================
+*/
+
+TARGET			fepexample.dll
+TARGETTYPE		plugin
+UID			0x10009D8D 0xE1002549
+SECUREID		0xE1002549
+
+CAPABILITY ALL -TCB
+
+USERINCLUDE		. ..\inc
+
+SOURCEPATH		..\src
+SOURCE			fepexampleplugin.cpp
+SOURCE			fepexample.cpp
+SOURCE			fepcontrol.cpp
+SOURCE			multitapengine.cpp
+SOURCE			multitaptimer.cpp
+SOURCE			fepindicator.cpp
+
+SYSTEMINCLUDE		. ..\inc \epoc32\include \epoc32\include\ecom
+
+LIBRARY			EUSER.LIB FEPBASE.LIB CONE.LIB ws32.lib
+LIBRARY			EIKCOCTL.LIB	// For CAknEdwinState
+LIBRARY			eikcore.lib  
+LIBRARY			bafl.lib avkon.lib
+LIBRARY			ECOM.LIB
+
+start resource ..\data\E1002549.rss
+target fepexample.rsc
+END
+

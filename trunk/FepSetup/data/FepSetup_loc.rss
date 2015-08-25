@@ -1,0 +1,23 @@
+/*
+* ============================================================================
+*  Name     : FepSetup_loc.rss
+*  Part of  : FepSetup
+*  Created  : 06/14/2006 by Forum Nokia 
+*  Version  : 2.0
+*  Copyright: Forum Nokia
+* ============================================================================
+*/
+CHARACTER_SET UTF8
+#include <appinfo.rh>
+
+RESOURCE LOCALISABLE_APP_INFO r_fepsetup_localisable_app_info
+    {
+    short_caption = "知了五笔";
+    caption_and_icon = 
+    CAPTION_AND_ICON_INFO
+        {
+        caption = "Zhi6知了五笔";
+        number_of_icons = 1;
+	   	icon_file = "\\resource\\apps\\zhi6_aif.mif";
+	};
+    }

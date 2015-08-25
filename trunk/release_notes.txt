@@ -1,0 +1,246 @@
+S60 Platform: FEP Example v2.0
+-------------------------------------------------
+
+This C++ code example demonstrates how to create and install a custom Front End
+Processor (FEP). It consists of two components: FepSetup, which can be used to
+install/switch the active FEP, and FepExample, which contains the actual FEP
+implementation. FepExample contains a sample multi-tap input engine, which
+modifies the behavior of the mobile phone's numeric keys.
+
+Because of the nature of FEP (the active FEP is loaded by all applications)
+there are some compatibility issues with other S60 applications. In addition, 
+an exceptionally strict capability set is needed for FEP in S60 3rd Edition and
+later. See the known issues section for further information.
+
+--------------------------------------------------------------------------------
+
+PREREQUISITES
+
+Symbian C++ basics
+
+--------------------------------------------------------------------------------
+
+IMPORTANT FILES/CLASSES
+
+Important files in the FepExample are:
+
+FepExample\src\fepexample.cpp
+
+    CExampleFep inherits the abstract base class for all FEPs, CCoeFep. 
+    It implements the pure virtual functions in CCoeFep, providing the FEP 
+    functionality.
+
+    In S60 1st and 2nd Editions it provides the NewFepL function, which in S60 3rd Edition
+    is in the CCoeFepPlugIn inherited class (as FEPs are implemented as ECOM
+    plug-ins in S60 3rd Edition).
+
+FepExample\src\FepExamplePlugin.cpp (S60 3rd Edition only)
+
+    The CExampleFepPlugin inherits CCoeFepPlugIn, which is an abstract base class
+    for all FEP plug-ins.  It creates a CExampleFep object in the NewFepL function.
+
+FepExample\src\FepControl.cpp
+
+    The main functionality of the FEP example is in the CExampleFepControl
+    class. Its OfferKeyEventL function receives the key events and forwards
+    them to the right handler functions depending on the mode (like 
+    OfferKeyEventInNumericModeL or OfferKeyEventInMultiTapModeL). It contains a
+    CExampleFepMultiTapEngine object, which is used to handle multiple
+    key presses.
+
+FepSetup:
+
+    FepSetup's logic is in the CFepSetupContainer class (see 
+    FepSetup\src\FepSetupContainer.cpp), which uses CFepGenericGlobalSettings for
+    changing the FEP settings. The actual FEP installation is done using 
+    the CCoeEnv::InstallFepL() function.
+
+Important classes:
+
+    CCoeFep, CCoeFepPlugIn, CFepGenericGlobalSettings, MAknEditingStateIndicator
+
+--------------------------------------------------------------------------------
+
+MISC. NOTES
+
+-- AknEditStateIndicator.h:
+
+FepExample uses AknEditStateIndicator.h, which defines MAknEditingStateIndicator,
+the Avkon Editing State Indicator Interface. This header has not been available
+in public SDKs. However, the UI library expects that all custom FEPs implement 
+MAknEditingStateIndicator, so AknEditStateIndicator.h is now included as part of
+FepExample and can be found in \FepExample\inc\.
+
+In S60 1st and 2nd Editions, a FEP is a polymorphic dll, which requires that its
+factory method must be the first item in the exports list, that is, the frozen
+.def file must contain the factory method (NewFepL() in FepExample) as the first
+method. FepExample comes with ready frozen .def files, so no action is needed
+there, but when implementing a new FEP, make sure that the method exports are in
+the correct order in the .def files. The method order in .def files can be manually 
+edited if needed; just remember to update the numbering as well (@ 1 etc.).
+
+-- Different UIDs for S60 2nd and 3rd Editions
+
+For self-signing, the UID can't be from the protected range. Because of this, all UIDs 
+are changed from the 0x0... range to the 0xE... range for S60 3rd Edition.
+
+UIDs in the 0xE range will not work in S60 2nd Edition, so the 0x0 has to be used for
+older SDKs, otherwise a "(45): Number too big for LONG" error occurs.
+
+--------------------------------------------------------------------------------
+
+KNOWN ISSUES
+
+- AknEditStateIndicator.h header (which defines MAknEditingStateIndicator, Avkon
+  Editing State Indicator Interface) wasn't available until the S60 3rd
+  Edition SDK, supporting Feature Pack 1. It is included as part of FepExample
+  and can be found in FepExample\inc\.
+
+- Switching the active FEP back and forth several times may sometimes cause the
+  mobile phone to boot (Nokia 3650, Nokia 7610), or cause an error message (Nokia 6600, Nokia 6630).
+
+-- S60 2nd Edition FP3 and S60 3rd Edition:
+
+- The FEP example is not compatible with the XHTML and HTML browsers. When a third-party FEP
+  is in use, the browser crashes when trying to load a Web page.
+
+
+NOTE: CAPABILITY REQUIREMENTS
+
+- In S60 3rd Edition, the FepSetup SIS file has to be signed using the Developer
+  Certificate due to the need for WriteDeviceData capability. A developer
+  certificate can be obtained from www.symbiansigned.com.
+
+- In S60 3rd Edition, the FepExample SIS file has to be signed using the Manufacturer
+  Approved Developer Certificate due to the need for "ALL -TCB" capabilities.
+  This level of capabilities is needed because the active FEP is loaded by all
+  applications. For further information on manufacturer-approved capabilities, 
+  go to http://www.forum.nokia.com/main/technical_services/testing/index.html#SS.
+
+---------------------------------------------------------------------------------
+
+IMPROVEMENT IDEAS
+
+- Switching to numeric mode and usage of capital letters has not been 
+  implemented.
+
+- The character map can't be used for adding special characters (with default
+  FEP it can be seen by holding down the * key).
+
+--------------------------------------------------------------------------------
+
+RUNNING THE EXAMPLE
+
+The FepSetup application is used to switch between installed FEPs.
+
+-- Activating ("installing") FepExample:
+
+   Start the FepSetup application.
+   Select the "Install Fep" item from the Options menu:
+      - The FepSetup application shows a list of available FEPs (for example,
+        FepExample and the preinstalled FEP of the S60 platform, aknfep).
+      - Select FepExample, and a note "fepexample installed" is displayed.
+
+FepExample is now the active FEP, and FepSetup can be exited.
+
+FepExample's effect on numeric keys can be tested by launching any application 
+that uses numeric key input, for example, adding a new contact to the phone book or writing
+an SMS. 
+
+-- Deactivating ("uninstalling") the FepExample FEP:
+    - Start the FepSetup application. 
+    - Select "Uninstall Fep." 
+ 
+NOTE: Always remember to uninstall a third-party FEP whenever it is not needed,
+      as it may conflict with other S60 applications. See the known issues section for
+      more details.
+
+--------------------------------------------------------------------------------
+
+BUILD & INSTALLATION INSTRUCTIONS
+
+Steps for building and installing the application to a device depend on the S60
+platform version:
+
+--Mobile device (S60 3rd Edition)
+    cd to /FepExample/group
+    bldmake bldfiles
+    abld build gcce urel
+    cd to /FepExample/sis
+    Edit the FepExample_S60_3rd_ed.pkg's paths to match those on your system.
+    makesis FepExample_S60_3rd_ed.pkg
+
+    cd to /FepSetup/group
+    bldmake bldfiles
+    abld build gcce urel
+    cd to /FepSetup/sis
+    Edit the paths in FepSetup_S60_3rd_ed.pkg to match those on your system.
+    makesis FepSetup_S60_3rd_ed.pkg
+    
+    Sign the SIS packages 
+      - See www.symbiansigned.com for information about Developer Certificates
+        and how to obtain a Manufacturer Approved Developer Certificate.
+
+    Install the signed .sis files to an S60 3rd Edition device.
+      - If you get a "Certificate error" during installation of a self-signed 
+        package, check that App.Manager -> Settings -> Software Installation is
+        set to "All." 
+
+--Mobile device (S60 1st and 2nd Editions)
+    cd to /FepExample/group
+    bldmake bldfiles
+    abld build armi urel
+    cd to /FepExample/sis
+    - Edit the paths in FepExample_S60_2nd_ed.pkg (or FepExample_S60_1st_ed.pkg)
+      to match those on your system.
+    makesis FepExample_S60_2nd_ed.pkg (or FepExample_S60_1st_ed.pkg)
+    Install the SIS file to the device.
+
+    cd to /FepSetup/group
+    bldmake bldfiles
+    abld build armi urel
+    cd to /FepSetup/sis
+    - Edit the paths in FepSetup_S60_2nd_ed.pkg (or FepSetup_S60_1st_ed.pkg) to
+      match those on your system.
+    makesis FepSetup_S60_2nd_ed.pkg (or FepSetup_S60_1st_ed.pkg)
+    Install the SIS file to the device.
+
+--Emulator (WINSCW)
+    cd to /FepExample/group
+    bldmake bldfiles
+    abld build winscw udeb
+    cd to /FepSetup/group
+    bldmake bldfiles
+    abld build winscw udeb
+    Start the emulator.
+    
+--------------------------------------------------------------------------------
+
+COMPATIBILITY
+
+(S60 3rd Edition)
+S60 2nd Edition
+S60 1st Edition
+
+Tested with Nokia 3650, Nokia 6600, Nokia 7610, Nokia 6630, Nokia N70, and Nokia E60.
+Created / tested with S60 1st Edition SDK (6.1) for Symbian OS; with S60 2nd Edition SDK (7.0s) 
+for Symbian OS, Supporting Feature Pack 2 for C++, Supporting Metrowerks CodeWarrior;
+and with S60 3rd Edition SDK (9.1) for Symbian OS, for C++, Supporting Metrowerks 
+CodeWarrior.
+
+--------------------------------------------------------------------------------
+
+VERSION HISTORY         
+
+2.0     Various small improvements and support added for S60 2nd Edition
+        (including Feature Packs). Compatible with S60 3rd Edition only with 
+        ALL-TCB capabilities.
+        
+1.0     First releases (Series 60 Developer Platform 1.0: FEP Example v1.0 and 
+        Series 60 Developer Platform 1.0: FEP Setup Example v1.0).
+
+--------------------------------------------------------------------------------
+EVALUATE THIS RESOURCE  
+Please spare a moment to help us improve documentation quality and recognize the
+examples you find most valuable, by rating this resource at
+http://www.forum.nokia.com/main/1%2C%2C90%2C00.html?surveyId=43ce27a1-ade6-4dbc-9450-932367982844/S60_Platform_FEP_Example_v2_0_en.zip
